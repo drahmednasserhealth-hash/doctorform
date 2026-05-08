@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>خطتي الغذائية | My Nutrition Plan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
@@ -34,8 +34,11 @@ body{
   background:var(--bg);
   color:var(--ink);
   min-height:100vh;
+  min-height:100svh;
   direction:rtl;
   overflow-x:hidden;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
 }
 
 /* ━━━━━━━━━━━━━━ HERO ━━━━━━━━━━━━━━ */
@@ -116,6 +119,7 @@ body{
   -webkit-backdrop-filter:blur(12px);
   border-bottom:1px solid rgba(200,160,80,.1);
   padding:12px 24px;
+  padding-top:max(12px, env(safe-area-inset-top));
 }
 .sticky-inner{
   max-width:760px;margin:0 auto;
@@ -135,7 +139,7 @@ body{
 .sticky-pct{font-size:13px;font-weight:800;color:var(--gold2)}
 
 /* ━━━━━━━━━━━━━━ WRAPPER ━━━━━━━━━━━━━━ */
-.wrapper{max-width:760px;margin:0 auto;padding:32px 16px 100px}
+.wrapper{max-width:760px;margin:0 auto;padding:32px 16px calc(100px + env(safe-area-inset-bottom))}
 
 /* ━━━━━━━━━━━━━━ STEP INDICATOR ━━━━━━━━━━━━━━ */
 .steps-row{
@@ -438,15 +442,146 @@ textarea{resize:vertical;min-height:88px;line-height:1.7}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 
 /* ━━━━━━━━━━━━━━ RESPONSIVE ━━━━━━━━━━━━━━ */
-@media(max-width:540px){
-  .hero-content{padding:24px 20px 40px}
-  .hero-stats{gap:16px}
-  .cbody,.cfoot{padding-left:18px;padding-right:18px}
+
+/* ── LAPTOP: 900px - 1280px ── */
+@media(max-width:1280px){
+  .wrapper{max-width:700px}
+}
+
+/* ── TABLET: 600px - 900px ── */
+@media(max-width:900px){
+  .wrapper{max-width:100%;padding:24px 20px 80px}
+
+  .hero{height:70vh;min-height:420px;max-height:560px}
+  .hero-content{padding:28px 28px 44px;max-width:100%}
+  .hero-h1{font-size:clamp(28px,5vw,46px)}
+
+  .sticky{padding:10px 20px}
+  .sticky-inner{gap:12px}
+
+  .steps-row{padding:0 4px 4px;gap:0}
+  .step-pill{padding:6px 10px;font-size:11px}
+  .step-pill span{display:none}          /* إخفاء النص — الدوت بس */
+  .step-connector{width:14px}
+
+  .card{border-radius:16px}
+  .cimg{height:170px}
+  .cbody{padding:22px 22px 6px}
+  .cfoot{padding:16px 22px 22px}
+
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:1fr 1fr 1fr}
+  .goalGrid{grid-template-columns:repeat(3,1fr)}
+  .mealsGrid{grid-template-columns:repeat(4,1fr)}
+
+  .hero-stats{gap:18px}
+  .stat-num{font-size:18px}
+}
+
+/* ── MOBILE: up to 599px ── */
+@media(max-width:599px){
+  .wrapper{padding:16px 12px 70px}
+
+  /* Hero */
+  .hero{height:100svh;min-height:480px;max-height:680px}
+  .hero-content{padding:20px 18px 36px}
+  .hero-badge{font-size:10px;letter-spacing:1.5px;padding:5px 12px}
+  .hero-h1{font-size:clamp(26px,8vw,38px);line-height:1.1}
+  .hero-sub{font-size:13px}
+  .hero-stats{gap:12px;flex-wrap:wrap}
+  .stat{border:none;padding:0;border-bottom:1px solid rgba(200,160,80,.2);padding-bottom:8px}
+  .stat-num{font-size:18px}
+  .stat-lbl{font-size:10px}
+  .scroll-hint{display:none}
+
+  /* Sticky */
+  .sticky{padding:10px 14px}
+  .sticky-logo{width:28px;height:28px;min-width:28px;font-size:14px}
+  .sticky-label{font-size:10px}
+  .sticky-pct{font-size:12px}
+
+  /* Step pills — numbers only on mobile */
+  .steps-row{gap:0;margin-bottom:14px}
+  .step-pill{padding:5px 8px;font-size:10px}
+  .step-pill span{display:none}
+  .step-connector{width:10px}
+  .step-pill-dot{width:20px;height:20px;font-size:9px}
+
+  /* Card */
+  .card{border-radius:14px}
+  .cimg{height:140px}
+  .cimg-text{padding:14px 16px}
+  .ctitle{font-size:18px}
+  .cnum{font-size:36px}
+  .cbody{padding:18px 16px 4px}
+  .cfoot{padding:14px 16px 20px;gap:8px}
+
+  /* Fields */
+  .label{font-size:12px}
+  .label .en{font-size:10px}
+  input,select,textarea{padding:11px 13px;font-size:13px}
+  textarea{min-height:76px}
+
+  /* Grids */
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:1fr 1fr}   /* 2 cols not 3 on small mobile */
+
+  /* Goal cards: 2×3 */
+  .goalGrid{grid-template-columns:1fr 1fr;gap:8px}
+  .gcard-img{height:70px}
+  .gcard-ar{font-size:12px}
+  .gcard-en{font-size:9px}
+
+  /* Activity list */
+  .arow{padding:10px 12px;gap:8px}
+  .aemoji{font-size:20px;min-width:24px}
+  .aname{font-size:13px}
+  .asub{font-size:10px}
+
+  /* Photo chips */
+  .photoChips{gap:6px}
+  .pchip-img{width:32px;height:32px}
+  .pchip-lbl{font-size:11px;padding:0 8px}
+
+  /* Meals: 2×2 on mobile */
+  .mealsGrid{grid-template-columns:1fr 1fr;gap:6px}
+  .mcard-img{height:52px}
+  .mcard-n{font-size:18px}
+  .mcard-l{font-size:9px}
+
+  /* Chips */
+  .chip{padding:7px 12px;font-size:12px}
+
+  /* Scale */
+  .sbtn{height:40px;font-size:14px}
+
+  /* Buttons */
+  .btnBack{padding:11px 14px;font-size:12px}
+  .btnNext{padding:13px;font-size:14px}
+
+  /* Success */
+  .success-hero{height:180px}
+  .success-hero-overlay h2{font-size:22px}
+  .success-body{padding:24px 20px 36px}
+  .scheck{width:54px;height:54px;font-size:22px}
+}
+
+/* ── VERY SMALL: < 360px ── */
+@media(max-width:360px){
+  .hero-h1{font-size:22px}
   .g2,.g3{grid-template-columns:1fr}
   .goalGrid{grid-template-columns:1fr 1fr}
   .mealsGrid{grid-template-columns:1fr 1fr}
-  .cimg{height:160px}
-  .ctitle{font-size:20px}
+  .cbody{padding:14px 13px 4px}
+  .cfoot{padding:12px 13px 16px}
+}
+
+/* ── TOUCH DEVICES — remove hover transforms ── */
+@media(hover:none){
+  .card:hover .cimg img{transform:none}
+  .gcard:hover{transform:none}
+  .btnNext:hover{transform:none;box-shadow:none}
+  .pchip:hover .pchip-img img{transform:none}
 }
 </style>
 </head>
