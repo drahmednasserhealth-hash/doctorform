@@ -1,544 +1,1280 @@
-
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>خطتي الغذائية | My Nutrition Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+/* ━━━━━━━━━━━━━━ RESET & VARS ━━━━━━━━━━━━━━ */
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --g1:#0D6B4B;--g2:#14A86E;--g3:#1EC98A;--g4:#6EEAC4;
-  --o1:#B84A00;--o2:#E56200;--o3:#FF8C1A;--o4:#FFB865;
-  --p1:#3D1A8F;--p2:#5E2FBD;--p3:#8B54E8;--p4:#C4A3F7;
-  --bg:#0A0F14;--bg2:#111820;--bg3:#1A2332;
-  --card:#162030;--card2:#1E2D42;
-  --txt:#F0F8FF;--txt2:#9BB8D4;--txt3:#6A8FAD;
-  --r:14px;--r2:20px;--r3:28px;
+  --bg:#0d1208;
+  --panel:#141a0e;
+  --card:#f7f4ec;
+  --card2:#eeead8;
+  --sand:#e0d9c0;
+  --gold:#c8a050;
+  --gold2:#f2cc70;
+  --goldLight:rgba(200,160,80,.12);
+  --green:#3a6b42;
+  --green2:#5a9668;
+  --greenPale:#d4ead8;
+  --ink:#12180e;
+  --ink2:#3a4030;
+  --ink3:#7a8060;
+  --white:#ffffff;
+  --danger:#c0392b;
+  --r:20px;
 }
-body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--txt);direction:rtl;min-height:600px}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Tajawal',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  min-height:100vh;
+  min-height:100svh;
+  direction:rtl;
+  overflow-x:hidden;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
 
-/* NAV */
-.nav{background:rgba(10,15,20,.95);backdrop-filter:blur(12px);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(30,180,120,.2);position:sticky;top:0;z-index:99}
-.logo{font-size:22px;font-weight:900;color:var(--txt);display:flex;align-items:center;gap:8px}
-.logo-icon{background:linear-gradient(135deg,var(--g2),var(--g3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.nav-btns{display:flex;gap:8px}
-.btn{padding:9px 20px;border-radius:var(--r);font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:'Cairo',sans-serif;transition:all .2s}
-.btn-ghost{background:rgba(255,255,255,.07);color:var(--txt2);border:1px solid rgba(255,255,255,.1)}
-.btn-ghost:hover{background:rgba(255,255,255,.12);color:var(--txt)}
-.btn-green{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;box-shadow:0 4px 20px rgba(20,168,110,.3)}
-.btn-green:hover{background:linear-gradient(135deg,var(--g2),var(--g3));transform:translateY(-1px);box-shadow:0 6px 28px rgba(30,201,138,.4)}
-.btn-orange{background:linear-gradient(135deg,var(--o1),var(--o2));color:#fff;box-shadow:0 4px 20px rgba(229,98,0,.35)}
-.btn-orange:hover{background:linear-gradient(135deg,var(--o2),var(--o3));transform:translateY(-1px)}
-
-/* TABS */
-.tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.06);background:var(--bg2);overflow-x:auto}
-.tab{padding:13px 20px;font-size:13px;font-weight:700;color:var(--txt3);cursor:pointer;border-bottom:2px solid transparent;background:none;border-top:none;border-right:none;border-left:none;font-family:'Cairo',sans-serif;transition:all .15s;white-space:nowrap}
-.tab:hover{color:var(--txt2)}
-.tab.active{color:var(--g3);border-bottom-color:var(--g3)}
-.view{display:none;padding:24px}
-.view.active{display:block}
-
-/* HERO */
+/* ━━━━━━━━━━━━━━ HERO ━━━━━━━━━━━━━━ */
 .hero{
-  position:relative;overflow:hidden;
-  min-height:400px;display:flex;align-items:center;
-  padding:48px 28px;
+  position:relative;
+  height:100vh;min-height:520px;max-height:720px;
+  display:flex;align-items:flex-end;
+  overflow:hidden;
 }
 .hero-bg{
   position:absolute;inset:0;
-  background:linear-gradient(135deg,#071A12 0%,#0D2B1D 40%,#0A1F35 100%);
+  background-image:url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1400&auto=format&fit=crop&q=85');
+  background-size:cover;background-position:center;
+  animation:slowZoom 18s ease-in-out infinite alternate;
 }
-.hero-img{
-  position:absolute;right:0;top:0;bottom:0;width:45%;
-  background:url('https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600&q=80') center/cover;
-  mask-image:linear-gradient(to right,transparent,rgba(0,0,0,.6) 40%,rgba(0,0,0,.9) 100%);
-  -webkit-mask-image:linear-gradient(to right,transparent,rgba(0,0,0,.6) 40%,rgba(0,0,0,.9) 100%);
-}
-.hero-content{position:relative;z-index:1;max-width:500px}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(30,201,138,.15);color:var(--g4);border:1px solid rgba(30,201,138,.25);padding:6px 14px;border-radius:99px;font-size:12px;font-weight:700;margin-bottom:18px}
-.hero h1{font-size:clamp(26px,4vw,40px);font-weight:900;line-height:1.2;margin-bottom:14px}
-.hero h1 .accent{background:linear-gradient(90deg,var(--g3),var(--o3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero-desc{font-size:15px;color:var(--txt2);line-height:1.8;margin-bottom:24px}
-.hero-cta{display:flex;gap:10px;flex-wrap:wrap}
-.hero-pills{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
-.pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:var(--txt2);padding:5px 12px;border-radius:99px;font-size:11px;font-weight:700}
-
-/* SECTION */
-.sec-title{font-size:20px;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:10px}
-.sec-sub{font-size:13px;color:var(--txt3);margin-bottom:20px}
-.glow-dot{width:8px;height:8px;border-radius:50%;background:var(--g3);box-shadow:0 0 10px var(--g3)}
-
-/* BOOKS GRID */
-.books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
-.book-card{
-  background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r2);
-  overflow:hidden;cursor:pointer;transition:all .25s;
-}
-.book-card:hover{transform:translateY(-4px);border-color:rgba(30,201,138,.3);box-shadow:0 12px 40px rgba(0,0,0,.4)}
-.book-img{height:130px;position:relative;overflow:hidden}
-.book-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.book-card:hover .book-img img{transform:scale(1.06)}
-.book-img-overlay{
+@keyframes slowZoom{from{transform:scale(1)}to{transform:scale(1.06)}}
+.hero-grad{
   position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(10,15,20,.85) 0%,transparent 60%);
-  display:flex;align-items:flex-end;padding:12px;
+  background:
+    linear-gradient(to top, rgba(13,18,8,.98) 0%, rgba(13,18,8,.6) 40%, rgba(13,18,8,.2) 100%),
+    linear-gradient(to right, rgba(13,18,8,.4) 0%, transparent 60%);
 }
-.book-emoji-badge{position:absolute;top:10px;right:10px;background:rgba(10,15,20,.7);backdrop-filter:blur(6px);border-radius:10px;padding:6px 10px;font-size:18px}
-.book-body{padding:14px}
-.book-title{font-size:14px;font-weight:800;margin-bottom:4px;color:var(--txt)}
-.book-desc{font-size:11px;color:var(--txt3);line-height:1.5;margin-bottom:10px}
-.book-footer{display:flex;align-items:center;justify-content:space-between}
-.price-tag{font-size:15px;font-weight:900;background:linear-gradient(90deg,var(--g3),var(--g4));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.free-badge{background:rgba(30,201,138,.15);color:var(--g4);border:1px solid rgba(30,201,138,.25);padding:3px 10px;border-radius:99px;font-size:10px;font-weight:700}
-.locked-badge{background:rgba(255,140,26,.12);color:var(--o3);border:1px solid rgba(255,140,26,.2);padding:3px 10px;border-radius:99px;font-size:10px;font-weight:700}
-
-/* SAMPLE PREVIEW */
-.sample-box{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r2);overflow:hidden}
-.sample-header{
-  background:linear-gradient(135deg,var(--g1),#0A4D35);
-  padding:18px 22px;display:flex;justify-content:space-between;align-items:center;
+.hero-content{
+  position:relative;z-index:2;
+  padding:40px 40px 56px;
+  max-width:800px;
 }
-.day-tabs{display:flex;background:var(--card2);border-bottom:1px solid rgba(255,255,255,.05);overflow-x:auto}
-.dtab{padding:11px 16px;font-size:12px;font-weight:700;color:var(--txt3);cursor:pointer;border-bottom:2px solid transparent;background:none;border-top:none;border-right:none;border-left:none;font-family:'Cairo',sans-serif;transition:all .15s;white-space:nowrap}
-.dtab.active{color:var(--g3);border-bottom-color:var(--g3)}
-.dtab.locked{color:rgba(255,255,255,.2);cursor:not-allowed}
-.meal-row{display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid rgba(255,255,255,.04)}
-.meal-row:last-child{border:none}
-.meal-time-chip{background:rgba(255,140,26,.12);color:var(--o3);border:1px solid rgba(255,140,26,.2);padding:4px 10px;border-radius:99px;font-size:10px;font-weight:700;white-space:nowrap;min-width:72px;text-align:center}
-.meal-name{flex:1;font-size:13px;font-weight:700;color:var(--txt)}
-.meal-cal{font-size:11px;font-weight:700;color:var(--g4);background:rgba(30,201,138,.1);padding:3px 9px;border-radius:99px}
-.day-total{padding:12px 20px;background:rgba(30,201,138,.06);display:flex;gap:0;border-top:1px solid rgba(30,201,138,.12)}
-.total-item{flex:1;text-align:center;border-right:1px solid rgba(255,255,255,.05)}
-.total-item:last-child{border:none}
-.total-num{font-size:17px;font-weight:900;color:var(--g3)}
-.total-lbl{font-size:10px;color:var(--txt3);margin-top:2px}
-.locked-wall{padding:36px 20px;text-align:center;background:linear-gradient(to bottom,rgba(26,35,50,0),var(--card))}
-.lock-ring{width:64px;height:64px;border-radius:50%;border:2px solid rgba(255,140,26,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:26px;background:rgba(255,140,26,.08)}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(200,160,80,.15);
+  border:1px solid rgba(200,160,80,.35);
+  color:var(--gold2);
+  font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  padding:6px 16px;border-radius:30px;margin-bottom:20px;
+}
+.hero-badge span{font-size:14px}
+.hero-h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(36px,6vw,64px);
+  color:var(--white);
+  line-height:1.08;
+  margin-bottom:16px;
+}
+.hero-h1 em{color:var(--gold2);font-style:italic}
+.hero-sub{
+  font-size:14px;
+  color:rgba(255,255,255,.55);
+  line-height:1.8;
+  max-width:480px;
+  margin-bottom:28px;
+}
+.hero-stats{
+  display:flex;gap:28px;flex-wrap:wrap;
+}
+.stat{
+  display:flex;flex-direction:column;
+  border-right:2px solid rgba(200,160,80,.3);
+  padding-right:20px;
+}
+.stat:last-child{border:none}
+.stat-num{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold2);font-weight:700}
+.stat-lbl{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px;letter-spacing:.5px}
 
-/* PRICING */
-.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
-.price-card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r2);overflow:hidden;position:relative;transition:all .2s}
-.price-card.featured{border-color:rgba(30,201,138,.35);box-shadow:0 0 30px rgba(30,201,138,.1)}
-.price-card:hover{transform:translateY(-3px)}
-.price-top{padding:20px 18px;border-bottom:1px solid rgba(255,255,255,.05)}
-.featured-label{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;font-size:10px;font-weight:700;padding:4px 16px;border-radius:0 0 10px 10px;white-space:nowrap}
-.price-name{font-size:14px;font-weight:700;color:var(--txt);margin-bottom:6px}
-.price-big{font-size:30px;font-weight:900;background:linear-gradient(90deg,var(--g3),var(--o3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.price-old{font-size:13px;color:var(--txt3);text-decoration:line-through;margin-right:6px}
-.price-bottom{padding:16px 18px}
-.pf{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--txt2);margin-bottom:8px}
-.pf:last-child{margin:0}
-.check{color:var(--g3);font-size:14px}
+.scroll-hint{
+  position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  color:rgba(255,255,255,.3);font-size:11px;letter-spacing:1px;
+  animation:bounce 2.5s ease-in-out infinite;
+}
+.scroll-hint svg{opacity:.4}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
 
-/* ALTS TABLE */
-.alts-table{width:100%;border-collapse:collapse;font-size:12px}
-.alts-table th{background:rgba(30,201,138,.08);color:var(--g4);padding:9px 12px;font-weight:700;text-align:right;border-bottom:1px solid rgba(255,255,255,.05)}
-.alts-table td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--txt2)}
-.alts-table tr:hover td{background:rgba(255,255,255,.03)}
-.cat-cell{font-weight:700;color:var(--txt)}
+/* ━━━━━━━━━━━━━━ STICKY PROGRESS ━━━━━━━━━━━━━━ */
+.sticky{
+  position:sticky;top:0;z-index:200;
+  background:rgba(13,18,8,.9);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(200,160,80,.1);
+  padding:12px 24px;
+  padding-top:max(12px, env(safe-area-inset-top));
+}
+.sticky-inner{
+  max-width:760px;margin:0 auto;
+  display:flex;align-items:center;gap:16px;
+}
+.sticky-logo{
+  width:34px;height:34px;min-width:34px;
+  background:linear-gradient(135deg,var(--green),var(--green2));
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+}
+.sticky-info{flex:1}
+.sticky-label{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.5px;margin-bottom:4px}
+.sticky-track{height:4px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden}
+.sticky-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--green2),var(--gold));transition:width .5s cubic-bezier(.4,0,.2,1);width:0%}
+.sticky-pct{font-size:13px;font-weight:800;color:var(--gold2)}
 
-/* MARKETING */
-.hook-cards{display:flex;flex-direction:column;gap:10px}
-.hook-card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);padding:14px}
-.hook-platform{font-size:10px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:6px}
-.hook-text{font-size:13px;color:var(--txt2);line-height:1.7}
-.platform-tiktok{color:#FF2D55}
-.platform-fb{color:#2D8CF0}
-.platform-ig{color:#E1306C}
-.platform-wa{color:#25D366}
-.platform-cta{color:var(--o3)}
+/* ━━━━━━━━━━━━━━ WRAPPER ━━━━━━━━━━━━━━ */
+.wrapper{max-width:760px;margin:0 auto;padding:32px 16px calc(100px + env(safe-area-inset-bottom))}
 
-/* SECURITY */
-.sec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
-.sec-item{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);padding:14px}
-.sec-icon{font-size:26px;margin-bottom:8px}
-.sec-title2{font-size:13px;font-weight:700;color:var(--txt);margin-bottom:4px}
-.sec-desc{font-size:11px;color:var(--txt3);line-height:1.5}
+/* ━━━━━━━━━━━━━━ STEP INDICATOR ━━━━━━━━━━━━━━ */
+.steps-row{
+  display:flex;align-items:center;gap:0;
+  margin-bottom:24px;
+  overflow-x:auto;padding-bottom:4px;
+}
+.steps-row::-webkit-scrollbar{display:none}
+.step-pill{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 14px;
+  border-radius:30px;
+  font-size:12px;font-weight:700;
+  color:rgba(255,255,255,.3);
+  white-space:nowrap;
+  cursor:pointer;transition:all .25s;
+  position:relative;
+}
+.step-pill.done{color:var(--green2)}
+.step-pill.active{
+  background:rgba(200,160,80,.12);
+  border:1px solid rgba(200,160,80,.25);
+  color:var(--gold2);
+}
+.step-pill-dot{
+  width:22px;height:22px;border-radius:50%;
+  border:2px solid currentColor;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:800;
+  transition:all .25s;
+  flex-shrink:0;
+}
+.step-pill.done .step-pill-dot{
+  background:var(--green2);border-color:var(--green2);color:#fff;
+}
+.step-pill.active .step-pill-dot{
+  background:var(--gold);border-color:var(--gold);color:var(--ink);
+}
+.step-connector{
+  width:24px;height:2px;
+  background:rgba(255,255,255,.1);flex-shrink:0;
+}
+.step-connector.done{background:var(--green2)}
 
-/* PHOTO GRID */
-.photo-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:20px}
-.photo-item{border-radius:var(--r);overflow:hidden;height:100px;position:relative}
-.photo-item img{width:100%;height:100%;object-fit:cover}
-.photo-label{position:absolute;bottom:0;right:0;left:0;background:linear-gradient(to top,rgba(0,0,0,.7),transparent);padding:8px;font-size:10px;font-weight:700;color:#fff}
+/* ━━━━━━━━━━━━━━ CARD ━━━━━━━━━━━━━━ */
+.card{
+  background:var(--card);
+  border-radius:var(--r);
+  overflow:hidden;
+  box-shadow:0 32px 80px rgba(0,0,0,.5),0 4px 16px rgba(0,0,0,.3);
+  display:none;
+  animation:cardIn .35s cubic-bezier(.25,.46,.45,.94);
+}
+.card.show{display:block}
+@keyframes cardIn{from{opacity:0;transform:translateY(20px) scale(.99)}to{opacity:1;transform:none}}
 
-/* STATS ROW */
-.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:24px}
-.stat-box{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);padding:14px;text-align:center}
-.stat-num{font-size:24px;font-weight:900;background:linear-gradient(90deg,var(--g3),var(--g4));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.stat-lbl{font-size:11px;color:var(--txt3);margin-top:3px}
+/* ━━━━━━━━━━━━━━ CARD IMAGE HEADER ━━━━━━━━━━━━━━ */
+.cimg{height:200px;position:relative;overflow:hidden}
+.cimg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 8s ease}
+.card:hover .cimg img{transform:scale(1.05)}
+.cimg-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(18,24,14,.85) 0%, rgba(18,24,14,.3) 55%, transparent 100%);
+}
+.cimg-text{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:20px 24px;
+  display:flex;align-items:flex-end;justify-content:space-between;
+}
+.ctitle{
+  font-family:'Playfair Display',serif;
+  font-size:24px;color:#fff;
+}
+.ctitle-en{display:block;font-size:11px;color:rgba(255,255,255,.45);font-style:italic;margin-top:3px;font-family:'Playfair Display',serif}
+.cnum{
+  font-family:'Playfair Display',serif;
+  font-size:52px;color:rgba(255,255,255,.08);
+  line-height:1;
+}
 
-/* FOOD PHOTOS */
-.food-showcase{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
-.food-card{border-radius:var(--r);overflow:hidden;position:relative;height:120px}
-.food-card img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.food-card:hover img{transform:scale(1.05)}
-.food-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65),transparent);display:flex;align-items:flex-end;padding:10px}
-.food-name{font-size:12px;font-weight:700;color:#fff}
-.food-cal{font-size:10px;color:var(--g4);margin-top:2px}
+/* ━━━━━━━━━━━━━━ CARD BODY ━━━━━━━━━━━━━━ */
+.cbody{padding:28px 28px 8px}
+
+/* ━━━━━━━━━━━━━━ FIELDS ━━━━━━━━━━━━━━ */
+.field{margin-bottom:22px}
+.label{
+  font-size:13px;font-weight:700;color:var(--ink2);
+  margin-bottom:7px;
+  display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+}
+.label .en{font-size:11px;color:var(--ink3);font-weight:400;font-style:italic}
+.req{color:var(--gold);font-size:18px;line-height:1}
+
+input,select,textarea{
+  width:100%;padding:13px 16px;
+  border:1.5px solid var(--sand);border-radius:12px;
+  font-family:'Tajawal',sans-serif;font-size:14px;
+  color:var(--ink);background:#fff;
+  outline:none;transition:all .2s;direction:rtl;
+  -webkit-appearance:none;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--green);
+  box-shadow:0 0 0 3px rgba(58,107,66,.1);
+}
+input::placeholder,textarea::placeholder{color:var(--ink3)}
+textarea{resize:vertical;min-height:88px;line-height:1.7}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+
+.ferr{font-size:11px;color:var(--danger);margin-top:5px;display:none}
+.field.err input,.field.err select,.field.err textarea{border-color:var(--danger)!important}
+.field.err .ferr{display:block}
+
+/* ━━━━━━━━━━━━━━ CHIPS ━━━━━━━━━━━━━━ */
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:3px}
+.chip{
+  padding:8px 15px;
+  border:1.5px solid var(--sand);border-radius:30px;
+  font-family:'Tajawal',sans-serif;font-size:13px;font-weight:600;
+  color:var(--ink2);background:#fff;
+  cursor:pointer;transition:all .17s;user-select:none;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.chip:hover{border-color:var(--green);color:var(--ink)}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+
+/* ━━━━━━━━━━━━━━ GOAL PHOTO CARDS ━━━━━━━━━━━━━━ */
+.goalGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:3px}
+.gcard{
+  border:2px solid var(--sand);border-radius:14px;
+  overflow:hidden;cursor:pointer;
+  transition:all .2s;background:#fff;
+  position:relative;
+}
+.gcard:hover{border-color:var(--green);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.gcard.on{border-color:var(--ink);box-shadow:0 0 0 3px rgba(18,24,14,.1)}
+.gcard-img{height:90px;overflow:hidden;position:relative}
+.gcard-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.gcard:hover .gcard-img img{transform:scale(1.08)}
+.gcheck{
+  position:absolute;top:8px;left:8px;
+  width:22px;height:22px;border-radius:50%;
+  background:rgba(0,0,0,.5);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:#fff;
+  opacity:0;transition:opacity .2s;
+}
+.gcard.on .gcheck{opacity:1;background:var(--green)}
+.gcard-body{padding:8px 10px;text-align:center}
+.gcard-ar{font-size:13px;font-weight:800;color:var(--ink)}
+.gcard-en{font-size:10px;color:var(--ink3);font-style:italic;margin-top:1px}
+
+/* ━━━━━━━━━━━━━━ ACTIVITY ━━━━━━━━━━━━━━ */
+.alist{display:flex;flex-direction:column;gap:8px;margin-top:3px}
+.arow{
+  display:flex;align-items:center;gap:12px;
+  padding:13px 16px;
+  border:1.5px solid var(--sand);border-radius:14px;
+  cursor:pointer;transition:all .18s;background:#fff;
+  overflow:hidden;position:relative;
+}
+.arow:hover{border-color:var(--green)}
+.arow.on{border-color:var(--ink);background:var(--ink)}
+.arow.on .aname,.arow.on .aen,.arow.on .asub{color:#fff!important}
+.arow.on .ado{background:var(--gold);border-color:var(--gold)}
+.arow.on .ado::after{content:'✓';font-size:11px;color:var(--ink);font-weight:900}
+.aemoji{font-size:24px;min-width:30px;text-align:center}
+.atxt{flex:1}
+.aname{font-size:14px;font-weight:700;color:var(--ink)}
+.aen{font-size:10px;color:var(--ink3);font-style:italic}
+.asub{font-size:11px;color:var(--ink3);margin-top:2px}
+.ado{
+  width:20px;height:20px;border-radius:50%;
+  border:2px solid var(--sand);
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .18s;
+}
+
+/* ━━━━━━━━━━━━━━ MEALS WITH PHOTOS ━━━━━━━━━━━━━━ */
+.mealsGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:3px}
+.mcard{
+  border:2px solid var(--sand);border-radius:14px;
+  overflow:hidden;cursor:pointer;
+  transition:all .2s;background:#fff;
+}
+.mcard:hover{border-color:var(--green)}
+.mcard.on{border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,160,80,.18)}
+.mcard-img{height:68px;overflow:hidden}
+.mcard-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.mcard:hover .mcard-img img{transform:scale(1.12)}
+.mcard-body{padding:8px 6px;text-align:center}
+.mcard-n{font-family:'Playfair Display',serif;font-size:22px;color:var(--ink)}
+.mcard.on .mcard-n{color:var(--gold)}
+.mcard-l{font-size:10px;color:var(--ink3);font-weight:600;margin-top:1px}
+
+/* ━━━━━━━━━━━━━━ FOOD PHOTO CHIPS ━━━━━━━━━━━━━━ */
+.photoChips{display:flex;flex-wrap:wrap;gap:8px;margin-top:3px}
+.pchip{
+  display:flex;align-items:center;gap:0;
+  border:2px solid var(--sand);border-radius:12px;
+  overflow:hidden;cursor:pointer;
+  transition:all .18s;background:#fff;
+  font-family:'Tajawal',sans-serif;
+}
+.pchip:hover{border-color:var(--green)}
+.pchip.on{border-color:var(--ink)}
+.pchip-img{width:38px;height:38px;overflow:hidden;flex-shrink:0}
+.pchip-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.pchip:hover .pchip-img img{transform:scale(1.15)}
+.pchip-lbl{padding:0 10px;font-size:12px;font-weight:700;color:var(--ink2);white-space:nowrap}
+.pchip.on .pchip-lbl{color:var(--ink)}
+
+/* ━━━━━━━━━━━━━━ SCALE ━━━━━━━━━━━━━━ */
+.scaleRow{display:flex;gap:6px;margin-top:3px}
+.sbtn{
+  flex:1;height:44px;
+  border:1.5px solid var(--sand);border-radius:10px;
+  font-family:'Tajawal',sans-serif;
+  font-size:15px;font-weight:700;color:var(--ink3);
+  background:#fff;cursor:pointer;transition:all .18s;
+  display:flex;align-items:center;justify-content:center;
+}
+.sbtn:hover{border-color:var(--green);color:var(--ink)}
+.sbtn.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.sclbl{display:flex;justify-content:space-between;margin-top:4px}
+.sclbl span{font-size:10px;color:var(--ink3)}
+
+/* ━━━━━━━━━━━━━━ CARD FOOTER ━━━━━━━━━━━━━━ */
+.cfoot{
+  padding:20px 28px 28px;
+  display:flex;gap:10px;align-items:center;
+  border-top:1px solid var(--card2);
+}
+.btnBack{
+  padding:12px 20px;
+  border:1.5px solid var(--sand);border-radius:12px;
+  background:transparent;
+  font-family:'Tajawal',sans-serif;
+  font-size:13px;font-weight:700;color:var(--ink2);
+  cursor:pointer;transition:all .18s;white-space:nowrap;
+}
+.btnBack:hover{background:var(--card2)}
+.btnBack:disabled{opacity:.3;pointer-events:none}
+.btnNext{
+  flex:1;padding:14px;
+  border:none;border-radius:12px;
+  background:var(--ink);
+  font-family:'Tajawal',sans-serif;
+  font-size:15px;font-weight:800;color:#fff;
+  cursor:pointer;transition:all .25s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btnNext:hover{background:#1e2a18;transform:translateY(-1px);box-shadow:0 10px 28px rgba(0,0,0,.3)}
+.btnNext:active{transform:translateY(0)}
+.btnSubmit{
+  background:linear-gradient(135deg,#7a5c18,var(--gold),var(--gold2));
+  color:var(--ink);
+}
+.btnSubmit:hover{box-shadow:0 10px 32px rgba(200,160,80,.4);background:linear-gradient(135deg,#8a6820,var(--gold),var(--gold2))}
+
+/* ━━━━━━━━━━━━━━ SUCCESS ━━━━━━━━━━━━━━ */
+.success{
+  display:none;
+  border-radius:var(--r);overflow:hidden;
+  box-shadow:0 32px 80px rgba(0,0,0,.5);
+  animation:cardIn .4s ease;
+}
+.success-hero{height:280px;position:relative}
+.success-hero img{width:100%;height:100%;object-fit:cover;display:block}
+.success-hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(13,18,8,.9) 0%,transparent 60%);
+  display:flex;align-items:flex-end;padding:28px 32px;
+}
+.success-hero-overlay h2{
+  font-family:'Playfair Display',serif;
+  font-size:32px;color:#fff;line-height:1.2;
+}
+.success-hero-overlay h2 em{color:var(--gold2);font-style:italic}
+.success-body{
+  background:var(--card);
+  padding:36px 32px 48px;
+  text-align:center;
+}
+.scheck{
+  width:68px;height:68px;margin:0 auto 20px;
+  background:linear-gradient(135deg,var(--green),var(--green2));
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;
+  box-shadow:0 12px 32px rgba(58,107,66,.35);
+}
+.success-body p{font-size:14px;color:var(--ink2);line-height:1.9;max-width:400px;margin:0 auto}
+.success-body .en-note{font-size:12px;color:var(--ink3);font-style:italic;margin-top:4px}
+
+/* ━━━━━━━━━━━━━━ SHAKE ━━━━━━━━━━━━━━ */
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* ━━━━━━━━━━━━━━ RESPONSIVE ━━━━━━━━━━━━━━ */
+
+/* ── LAPTOP: 900px - 1280px ── */
+@media(max-width:1280px){
+  .wrapper{max-width:700px}
+}
+
+/* ── TABLET: 600px - 900px ── */
+@media(max-width:900px){
+  .wrapper{max-width:100%;padding:24px 20px 80px}
+
+  .hero{height:70vh;min-height:420px;max-height:560px}
+  .hero-content{padding:28px 28px 44px;max-width:100%}
+  .hero-h1{font-size:clamp(28px,5vw,46px)}
+
+  .sticky{padding:10px 20px}
+  .sticky-inner{gap:12px}
+
+  .steps-row{padding:0 4px 4px;gap:0}
+  .step-pill{padding:6px 10px;font-size:11px}
+  .step-pill span{display:none}          /* إخفاء النص — الدوت بس */
+  .step-connector{width:14px}
+
+  .card{border-radius:16px}
+  .cimg{height:170px}
+  .cbody{padding:22px 22px 6px}
+  .cfoot{padding:16px 22px 22px}
+
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:1fr 1fr 1fr}
+  .goalGrid{grid-template-columns:repeat(3,1fr)}
+  .mealsGrid{grid-template-columns:repeat(4,1fr)}
+
+  .hero-stats{gap:18px}
+  .stat-num{font-size:18px}
+}
+
+/* ── MOBILE: up to 599px ── */
+@media(max-width:599px){
+  .wrapper{padding:16px 12px 70px}
+
+  /* Hero */
+  .hero{height:100svh;min-height:480px;max-height:680px}
+  .hero-content{padding:20px 18px 36px}
+  .hero-badge{font-size:10px;letter-spacing:1.5px;padding:5px 12px}
+  .hero-h1{font-size:clamp(26px,8vw,38px);line-height:1.1}
+  .hero-sub{font-size:13px}
+  .hero-stats{gap:12px;flex-wrap:wrap}
+  .stat{border:none;padding:0;border-bottom:1px solid rgba(200,160,80,.2);padding-bottom:8px}
+  .stat-num{font-size:18px}
+  .stat-lbl{font-size:10px}
+  .scroll-hint{display:none}
+
+  /* Sticky */
+  .sticky{padding:10px 14px}
+  .sticky-logo{width:28px;height:28px;min-width:28px;font-size:14px}
+  .sticky-label{font-size:10px}
+  .sticky-pct{font-size:12px}
+
+  /* Step pills — numbers only on mobile */
+  .steps-row{gap:0;margin-bottom:14px}
+  .step-pill{padding:5px 8px;font-size:10px}
+  .step-pill span{display:none}
+  .step-connector{width:10px}
+  .step-pill-dot{width:20px;height:20px;font-size:9px}
+
+  /* Card */
+  .card{border-radius:14px}
+  .cimg{height:140px}
+  .cimg-text{padding:14px 16px}
+  .ctitle{font-size:18px}
+  .cnum{font-size:36px}
+  .cbody{padding:18px 16px 4px}
+  .cfoot{padding:14px 16px 20px;gap:8px}
+
+  /* Fields */
+  .label{font-size:12px}
+  .label .en{font-size:10px}
+  input,select,textarea{padding:11px 13px;font-size:13px}
+  textarea{min-height:76px}
+
+  /* Grids */
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:1fr 1fr}   /* 2 cols not 3 on small mobile */
+
+  /* Goal cards: 2×3 */
+  .goalGrid{grid-template-columns:1fr 1fr;gap:8px}
+  .gcard-img{height:70px}
+  .gcard-ar{font-size:12px}
+  .gcard-en{font-size:9px}
+
+  /* Activity list */
+  .arow{padding:10px 12px;gap:8px}
+  .aemoji{font-size:20px;min-width:24px}
+  .aname{font-size:13px}
+  .asub{font-size:10px}
+
+  /* Photo chips */
+  .photoChips{gap:6px}
+  .pchip-img{width:32px;height:32px}
+  .pchip-lbl{font-size:11px;padding:0 8px}
+
+  /* Meals: 2×2 on mobile */
+  .mealsGrid{grid-template-columns:1fr 1fr;gap:6px}
+  .mcard-img{height:52px}
+  .mcard-n{font-size:18px}
+  .mcard-l{font-size:9px}
+
+  /* Chips */
+  .chip{padding:7px 12px;font-size:12px}
+
+  /* Scale */
+  .sbtn{height:40px;font-size:14px}
+
+  /* Buttons */
+  .btnBack{padding:11px 14px;font-size:12px}
+  .btnNext{padding:13px;font-size:14px}
+
+  /* Success */
+  .success-hero{height:180px}
+  .success-hero-overlay h2{font-size:22px}
+  .success-body{padding:24px 20px 36px}
+  .scheck{width:54px;height:54px;font-size:22px}
+}
+
+/* ── VERY SMALL: < 360px ── */
+@media(max-width:360px){
+  .hero-h1{font-size:22px}
+  .g2,.g3{grid-template-columns:1fr}
+  .goalGrid{grid-template-columns:1fr 1fr}
+  .mealsGrid{grid-template-columns:1fr 1fr}
+  .cbody{padding:14px 13px 4px}
+  .cfoot{padding:12px 13px 16px}
+}
+
+/* ── TOUCH DEVICES — remove hover transforms ── */
+@media(hover:none){
+  .card:hover .cimg img{transform:none}
+  .gcard:hover{transform:none}
+  .btnNext:hover{transform:none;box-shadow:none}
+  .pchip:hover .pchip-img img{transform:none}
+}
 </style>
+</head>
+<body>
 
-<div style="background:var(--bg);min-height:600px">
-
-<nav class="nav">
-  <div class="logo">
-    <span style="font-size:22px">🥗</span>
-    <span>أكل <span class="logo-icon">صح</span></span>
-  </div>
-  <div class="nav-btns">
-    <button class="btn btn-ghost">دخول</button>
-    <button class="btn btn-green">ابدأ مجاناً 🎁</button>
-  </div>
-</nav>
-
-<div class="tabs">
-  <button class="tab active" onclick="sw('landing',this)">🏠 الرئيسية</button>
-  <button class="tab" onclick="sw('books',this)">📚 الكتب</button>
-  <button class="tab" onclick="sw('sample',this)">👀 معاينة</button>
-  <button class="tab" onclick="sw('alts',this)">🔄 البدائل</button>
-  <button class="tab" onclick="sw('pricing',this)">💰 الأسعار</button>
-  <button class="tab" onclick="sw('marketing',this)">📢 التسويق</button>
-  <button class="tab" onclick="sw('security',this)">🔒 الأمان</button>
-</div>
-
-<!-- ══ LANDING ══ -->
-<div class="view active" id="v-landing">
-  <div class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-img"></div>
-    <div class="hero-content">
-      <div class="hero-tag">🇪🇬 مصنوع في مصر للمصريين</div>
-      <h1>أنظمة غذائية <span class="accent">مصرية</span> تشتغل فعلاً</h1>
-      <p class="hero-desc">فول — بيض — رز — فراخ<br>أكل بتعرفه وبتقدر تعمله — وبينتج معاك</p>
-      <div class="hero-cta">
-        <button class="btn btn-green" style="font-size:14px;padding:12px 24px">ابدأ 3 أيام مجاناً 🎁</button>
-        <button class="btn btn-orange" style="font-size:14px;padding:12px 24px" onclick="sw('sample',document.querySelectorAll('.tab')[2])">شوف مثال ←</button>
+<!-- ═══════════ HERO ═══════════ -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grad"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span>🌿</span> Personalized Nutrition • تغذية مخصصة</div>
+    <h1 class="hero-h1">
+      Your <em>Perfect</em><br>
+      Nutrition Plan<br>
+      <span style="font-size:.55em;color:rgba(255,255,255,.6);font-family:'Tajawal',sans-serif;font-weight:300">خطتك الغذائية المثالية</span>
+    </h1>
+    <p class="hero-sub">
+      Fill in your details and receive a 100% personalised meal plan in 24 hours.<br>
+      <span style="font-size:12px">أجب على الأسئلة واستلم خطتك الغذائية المخصصة خلال ٢٤ ساعة</span>
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">٣٠٠+</div>
+        <div class="stat-lbl">عميل راضي<br>Happy Clients</div>
       </div>
-      <div class="hero-pills">
-        <span class="pill">✅ 7 كتب تغذية</span>
-        <span class="pill">✅ 30 يوم مخطط</span>
-        <span class="pill">✅ 3 أيام مجاناً</span>
-        <span class="pill">✅ فودافون كاش</span>
+      <div class="stat">
+        <div class="stat-num">24h</div>
+        <div class="stat-lbl">سرعة التسليم<br>Delivery Time</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-lbl">مخصص ليك<br>Personalised</div>
       </div>
     </div>
   </div>
-
-  <div style="padding:24px">
-    <div class="stats-row">
-      <div class="stat-box"><div class="stat-num">500+</div><div class="stat-lbl">مشترك</div></div>
-      <div class="stat-box"><div class="stat-num">7</div><div class="stat-lbl">كتب تغذية</div></div>
-      <div class="stat-box"><div class="stat-num">4.9⭐</div><div class="stat-lbl">تقييم المستخدمين</div></div>
-      <div class="stat-box"><div class="stat-num">30</div><div class="stat-lbl">يوم مخطط</div></div>
-      <div class="stat-box"><div class="stat-num">245</div><div class="stat-lbl">وجبة مصرية</div></div>
-    </div>
-
-    <div class="photo-row">
-      <div class="photo-item">
-        <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=300&q=80" alt="فول مدمس">
-        <div class="photo-label">🫘 فول مدمس</div>
-      </div>
-      <div class="photo-item">
-        <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=300&q=80" alt="بيض">
-        <div class="photo-label">🥚 بيض مسلوق</div>
-      </div>
-      <div class="photo-item">
-        <img src="https://images.unsplash.com/photo-1603046891744-1f9d6d4b8d36?w=300&q=80" alt="فراخ مشوية">
-        <div class="photo-label">🍗 فراخ مشوية</div>
-      </div>
-    </div>
-
-    <div style="background:linear-gradient(135deg,rgba(13,107,75,.25),rgba(94,47,189,.15));border:1px solid rgba(30,201,138,.2);border-radius:var(--r2);padding:20px">
-      <div style="font-size:16px;font-weight:800;margin-bottom:8px">💚 ليه أكل صح مختلف؟</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;color:var(--txt2)">
-        <div>✅ أكل مصري حقيقي — مش غريب</div>
-        <div>✅ وصفات في 3-10 دقائق</div>
-        <div>✅ بيناسب كل الميزانيات</div>
-        <div>✅ بدائل لكل وجبة</div>
-        <div>✅ قوائم مشتريات أسبوعية</div>
-        <div>✅ متابعة واتساب</div>
-      </div>
-    </div>
+  <div class="scroll-hint">
+    <svg width="16" height="20" viewBox="0 0 16 20" fill="none"><rect x="1" y="1" width="14" height="18" rx="7" stroke="white" stroke-width="1.5"/><circle cx="8" cy="7" r="2" fill="white"/></svg>
+    SCROLL
   </div>
 </div>
 
-<!-- ══ BOOKS ══ -->
-<div class="view" id="v-books">
-  <div class="sec-title"><div class="glow-dot"></div>سلسلة الكتب السبعة</div>
-  <div class="sec-sub">كل كتاب له هدف محدد وخطة 30 يوم كاملة</div>
-
-  <div class="food-showcase">
-    <div class="food-card">
-      <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&q=80" alt="صحي">
-      <div class="food-card-overlay">
-        <div><div class="food-name">أكل صحي ومشبع</div><div class="food-cal">1400 سعر حراري</div></div>
-      </div>
+<!-- ═══════════ STICKY PROGRESS ═══════════ -->
+<div class="sticky">
+  <div class="sticky-inner">
+    <div class="sticky-logo">🥗</div>
+    <div class="sticky-info">
+      <div class="sticky-label" id="stepLabel">الخطوة ١ من ٦ • Step 1 of 6</div>
+      <div class="sticky-track"><div class="sticky-fill" id="fill"></div></div>
     </div>
-    <div class="food-card">
-      <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80" alt="وجبات">
-      <div class="food-card-overlay">
-        <div><div class="food-name">وجبات يومية منظمة</div><div class="food-cal">30 يوم مخطط</div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="books-grid" id="booksGrid"></div>
-</div>
-
-<!-- ══ SAMPLE ══ -->
-<div class="view" id="v-sample">
-  <div class="sec-title"><div class="glow-dot"></div>معاينة كتاب التخسيس</div>
-  <div class="sec-sub">3 أيام مجانية — باقي الـ 30 يوم بعد الشراء</div>
-
-  <div style="border-radius:var(--r);overflow:hidden;margin-bottom:16px;height:140px;position:relative">
-    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=700&q=80" style="width:100%;height:100%;object-fit:cover" alt="وجبات صحية">
-    <div style="position:absolute;inset:0;background:linear-gradient(to left,rgba(0,0,0,.1),rgba(13,107,75,.7));display:flex;align-items:center;padding:20px">
-      <div>
-        <div style="font-size:18px;font-weight:800;color:#fff">🔥 كتاب التخسيس</div>
-        <div style="font-size:12px;color:var(--g4);margin-top:4px">1400 سعر حراري يومياً · أكل مصري 100%</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="sample-box">
-    <div class="day-tabs">
-      <button class="dtab active" onclick="showDay(1,this)">اليوم 1</button>
-      <button class="dtab" onclick="showDay(2,this)">اليوم 2</button>
-      <button class="dtab" onclick="showDay(3,this)">اليوم 3</button>
-      <button class="dtab locked">🔒 يوم 4</button>
-      <button class="dtab locked">🔒 يوم 7</button>
-      <button class="dtab locked">🔒 يوم 30</button>
-    </div>
-    <div id="dayContent"></div>
-    <div class="locked-wall">
-      <div class="lock-ring">🔒</div>
-      <div style="font-size:15px;font-weight:800;margin-bottom:6px">اليوم 4 لـ 30 مقفولين</div>
-      <div style="font-size:12px;color:var(--txt3);margin-bottom:18px">افتح 30 يوم كامل بـ 49 جنيه بس</div>
-      <button class="btn btn-orange" style="font-size:14px;padding:12px 28px">افتح باقي النظام الآن 🚀</button>
-    </div>
+    <div class="sticky-pct" id="pct">0%</div>
   </div>
 </div>
 
-<!-- ══ ALTERNATIVES ══ -->
-<div class="view" id="v-alts">
-  <div class="sec-title"><div class="glow-dot"></div>جداول البدائل الغذائية</div>
-  <div class="sec-sub">بدّل أي مكون بمكون تاني في نفس الخانة — نفس السعرات تقريباً</div>
+<!-- ═══════════ WRAPPER ═══════════ -->
+<div class="wrapper">
 
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
-    <div style="border-radius:var(--r);overflow:hidden;height:100px;position:relative">
-      <img src="https://images.unsplash.com/photo-1518492104633-130d0cc84637?w=300&q=80" style="width:100%;height:100%;object-fit:cover" alt="بروتين">
-      <div style="position:absolute;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff">💪 مصادر البروتين</div>
-    </div>
-    <div style="border-radius:var(--r);overflow:hidden;height:100px;position:relative">
-      <img src="https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?w=300&q=80" style="width:100%;height:100%;object-fit:cover" alt="كارب">
-      <div style="position:absolute;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff">🌾 مصادر الكارب</div>
-    </div>
-  </div>
+  <!-- Step Pills -->
+  <div class="steps-row" id="stepsRow"></div>
 
-  <div style="background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r2);overflow:hidden">
-    <table class="alts-table">
-      <thead><tr><th>النوع</th><th>الخيار الأساسي</th><th>بديل 2</th><th>بديل رخيص</th><th>سعر/100جم</th></tr></thead>
-      <tbody>
-        <tr><td class="cat-cell">💪 بروتين</td><td>صدر فراخ مشوي</td><td>بيض مسلوق</td><td>تونة في الماء</td><td style="color:var(--g3);font-weight:700">165</td></tr>
-        <tr><td></td><td>لحمة مفرومة</td><td>سمك بلطي</td><td>عدس أحمر</td><td style="color:var(--g3);font-weight:700">180</td></tr>
-        <tr><td></td><td>جبنة قريش</td><td>لبن زبادي</td><td>فول نابت</td><td style="color:var(--g3);font-weight:700">95</td></tr>
-        <tr><td class="cat-cell">🌾 كارب</td><td>رز أبيض</td><td>عيش أسمر</td><td>بطاطس مسلوقة</td><td style="color:var(--o3);font-weight:700">130</td></tr>
-        <tr><td></td><td>مكرونة</td><td>بطاطا حلوة</td><td>عيش بلدي</td><td style="color:var(--o3);font-weight:700">158</td></tr>
-        <tr><td class="cat-cell">🫒 دهون</td><td>زيت زيتون</td><td>لوز</td><td>زيت دوار</td><td style="color:var(--p3);font-weight:700">900</td></tr>
-        <tr><td class="cat-cell">🥬 خضار</td><td>طماطم</td><td>خيار</td><td>كوسة</td><td style="color:var(--txt3);font-weight:700">18</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div style="margin-top:12px;padding:12px 16px;background:rgba(255,140,26,.1);border:1px solid rgba(255,140,26,.2);border-radius:var(--r);font-size:12px;color:var(--o3)">
-    💡 قاعدة ذهبية: أي بديل في نفس الخانة = نفس السعرات تقريباً. بدّل براحتك!
-  </div>
-</div>
-
-<!-- ══ PRICING ══ -->
-<div class="view" id="v-pricing">
-  <div class="sec-title"><div class="glow-dot"></div>الباقات والأسعار</div>
-  <div class="sec-sub">دفع مرة واحدة — مفيش اشتراك شهري</div>
-
-  <div style="border-radius:var(--r);overflow:hidden;margin-bottom:20px;height:120px;position:relative">
-    <img src="https://images.unsplash.com/photo-1543352634-99a5d50ae78e?w=700&q=80" style="width:100%;height:100%;object-fit:cover" alt="صحي">
-    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,107,75,.8),transparent);display:flex;align-items:center;padding:20px">
-      <div style="font-size:15px;font-weight:800;color:#fff">استثمر في صحتك 💚<br><span style="font-size:11px;font-weight:400;color:var(--g4)">وجبة كنتاكي = 80 جنيه · الباقة الكاملة = 199 جنيه</span></div>
-    </div>
-  </div>
-
-  <div class="pricing-grid">
-    <div class="price-card">
-      <div class="price-top">
-        <div class="price-name">باقة البداية</div>
-        <div><span class="price-old">98</span><span class="price-big">79</span><span style="font-size:12px;color:var(--txt3)"> جنيه</span></div>
-        <div style="font-size:11px;color:var(--txt3);margin-top:4px">التخسيس + التثبيت</div>
-      </div>
-      <div class="price-bottom">
-        <div class="pf"><span class="check">✓</span>كتابين كاملين</div>
-        <div class="pf"><span class="check">✓</span>60 يوم وجبات</div>
-        <div class="pf"><span class="check">✓</span>جداول بدائل</div>
-        <button class="btn btn-ghost" style="width:100%;margin-top:12px">اشتري</button>
+  <!-- ═══ STEP 1: Personal ═══ -->
+  <div class="card show" id="s1">
+    <div class="cimg">
+      <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=900&auto=format&fit=crop&q=80" alt="nutrition" loading="eager">
+      <div class="cimg-overlay"></div>
+      <div class="cimg-text">
+        <div><div class="ctitle">البيانات الشخصية<span class="ctitle-en">Personal Information</span></div></div>
+        <div class="cnum">01</div>
       </div>
     </div>
-
-    <div class="price-card featured">
-      <div class="featured-label">⭐ الأوفر</div>
-      <div class="price-top">
-        <div class="price-name" style="margin-top:10px">الباقة الكاملة</div>
-        <div><span class="price-old">323</span><span class="price-big">199</span><span style="font-size:12px;color:var(--txt3)"> جنيه</span></div>
-        <div style="font-size:11px;color:var(--txt3);margin-top:4px">كل الكتب السبعة</div>
+    <div class="cbody">
+      <div class="g2">
+        <div class="field" id="f-name">
+          <div class="label"><span class="req">*</span>الاسم الكامل <span class="en">Full Name</span></div>
+          <input type="text" id="name" placeholder="اسمك / Your name">
+          <div class="ferr">الاسم مطلوب • Name required</div>
+        </div>
+        <div class="field" id="f-email">
+          <div class="label"><span class="req">*</span>الإيميل <span class="en">Email address</span></div>
+          <input type="email" id="email" placeholder="you@example.com" dir="ltr">
+          <div class="ferr">إيميل صحيح مطلوب • Valid email required</div>
+        </div>
       </div>
-      <div class="price-bottom">
-        <div class="pf"><span class="check">✓</span>7 كتب تغذية</div>
-        <div class="pf"><span class="check">✓</span>210 يوم مخطط</div>
-        <div class="pf"><span class="check">✓</span>تمارين منزلية</div>
-        <div class="pf"><span class="check">✓</span>متابعة واتساب</div>
-        <div class="pf"><span class="check">✓</span>تحديثات مجانية</div>
-        <button class="btn btn-green" style="width:100%;margin-top:12px;padding:11px">اشتري الآن 💳</button>
+      <div class="g3">
+        <div class="field" id="f-age">
+          <div class="label"><span class="req">*</span>العمر <span class="en">Age</span></div>
+          <input type="number" id="age" placeholder="25" min="10" max="90">
+          <div class="ferr">أدخل عمرك</div>
+        </div>
+        <div class="field" id="f-weight">
+          <div class="label"><span class="req">*</span>الوزن كجم <span class="en">Weight kg</span></div>
+          <input type="number" id="weight" placeholder="70" min="30" max="300">
+          <div class="ferr">الوزن مطلوب</div>
+        </div>
+        <div class="field" id="f-height">
+          <div class="label"><span class="req">*</span>الطول سم <span class="en">Height cm</span></div>
+          <input type="number" id="height" placeholder="170" min="100" max="230">
+          <div class="ferr">الطول مطلوب</div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label"><span class="req">*</span>الجنس <span class="en">Gender</span></div>
+        <div class="chips" id="gender">
+          <div class="chip" onclick="pick1('gender',this,'ذكر / Male')">♂ ذكر / Male</div>
+          <div class="chip" onclick="pick1('gender',this,'أنثى / Female')">♀ أنثى / Female</div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label">واتساب <span class="en">WhatsApp (optional)</span></div>
+        <input type="text" id="whatsapp" placeholder="01xxxxxxxxx" dir="ltr">
       </div>
     </div>
+    <div class="cfoot">
+      <button class="btnBack" disabled>← رجوع</button>
+      <button class="btnNext" onclick="next(1)">التالي • Next →</button>
+    </div>
+  </div>
 
-    <div class="price-card">
-      <div class="price-top">
-        <div class="price-name">باقة الطالب</div>
-        <div><span class="price-old">127</span><span class="price-big">89</span><span style="font-size:12px;color:var(--txt3)"> جنيه</span></div>
-        <div style="font-size:11px;color:var(--txt3);margin-top:4px">الاقتصادي + كسولين + مشغولين</div>
+  <!-- ═══ STEP 2: Goal ═══ -->
+  <div class="card" id="s2">
+    <div class="cimg">
+      <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=900&auto=format&fit=crop&q=80" alt="fitness goal" loading="lazy">
+      <div class="cimg-overlay"></div>
+      <div class="cimg-text">
+        <div><div class="ctitle">هدفك<span class="ctitle-en">Your Goal</span></div></div>
+        <div class="cnum">02</div>
       </div>
-      <div class="price-bottom">
-        <div class="pf"><span class="check">✓</span>3 كتب للطلبة</div>
-        <div class="pf"><span class="check">✓</span>وجبات بـ 25 جنيه/يوم</div>
-        <div class="pf"><span class="check">✓</span>وجبات 5 دقائق</div>
-        <button class="btn btn-ghost" style="width:100%;margin-top:12px">اشتري</button>
+    </div>
+    <div class="cbody">
+      <div class="field">
+        <div class="label"><span class="req">*</span>ما هدفك الرئيسي؟ <span class="en">What is your main goal?</span></div>
+        <div class="goalGrid" id="goal">
+          <div class="gcard" onclick="pickGoal(this,'تخسيس وحرق دهون • Fat Loss')">
+            <div class="gcard-img"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&auto=format&fit=crop&q=70" alt="fat loss" loading="lazy"><div class="gcheck">✓</div></div>
+            <div class="gcard-body"><div class="gcard-ar">تخسيس</div><div class="gcard-en">Fat Loss</div></div>
+          </div>
+          <div class="gcard" onclick="pickGoal(this,'بناء عضلات • Muscle Gain')">
+            <div class="gcard-img"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=300&auto=format&fit=crop&q=70" alt="muscle" loading="lazy"><div class="gcheck">✓</div></div>
+            <div class="gcard-body"><div class="gcard-ar">بناء عضلات</div><div class="gcard-en">Muscle Gain</div></div>
+          </div>
+          <div class="gcard" onclick="pickGoal(this,'ثبات الوزن • Maintain Weight')">
+            <div class="gcard-img"><img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=300&auto=format&fit=crop&q=70" alt="balance" loading="lazy"><div class="gcheck">✓</div></div>
+            <div class="gcard-body"><div class="gcard-ar">ثبات الوزن</div><div class="gcard-en">Maintain</div></div>
+          </div>
+          <div class="gcard" onclick="pickGoal(this,'صحة عامة • General Wellness')">
+            <div class="gcard-img"><img src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=300&auto=format&fit=crop&q=70" alt="health" loading="lazy"><div class="gcheck">✓</div></div>
+            <div class="gcard-body"><div class="gcard-ar">صحة عامة</div><div class="gcard-en">Wellness</div></div>
+          </div>
+          <div class="gcard" onclick="pickGoal(this,'أداء رياضي • Sports Performance')">
+            <div class="gcard-img"><img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=300&auto=format&fit=crop&q=70" alt="sports" loading="lazy"><div class="gcheck">✓</div></div>
+            <div class="gcard-body"><div class="gcard-ar">أداء رياضي</div><div class="gcard-en">Performance</div></div>
+          </div>
+          <div class="gcard" onclick="pickGoal(this,'نظام علاجي • Medical Diet')">
+            <div class="gcard-img"><img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=300&auto=format&fit=crop&q=70" alt="medical" loading="lazy"><div class="gcheck">✓</div></div>
+            <div class="gcard-body"><div class="gcard-ar">نظام علاجي</div><div class="gcard-en">Medical</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="field">
+          <div class="label">الوزن المستهدف كجم <span class="en">Target weight kg</span></div>
+          <input type="number" id="targetW" placeholder="65">
+        </div>
+        <div class="field">
+          <div class="label">المدة الزمنية <span class="en">Timeframe</span></div>
+          <select id="duration">
+            <option value="">اختر / Select</option>
+            <option>شهر واحد / 1 Month</option>
+            <option>٣ أشهر / 3 Months</option>
+            <option>٦ أشهر / 6 Months</option>
+            <option>سنة / 1 Year</option>
+          </select>
+        </div>
       </div>
     </div>
-  </div>
-  <div style="margin-top:16px;text-align:center;font-size:12px;color:var(--txt3)">
-    💳 فودافون كاش · 🔓 تفعيل خلال ساعة · 💚 3 أيام مجاناً بدون دفع · ↩ استرداد 7 أيام
-  </div>
-</div>
-
-<!-- ══ MARKETING ══ -->
-<div class="view" id="v-marketing">
-  <div class="sec-title"><div class="glow-dot"></div>محتوى تسويقي جاهز</div>
-  <div class="sec-sub">Hooks ومنشورات جاهزة لكل منصة</div>
-
-  <div class="hook-cards">
-    <div class="hook-card">
-      <div class="hook-platform platform-tiktok">🎵 تيك توك / ريلز</div>
-      <div class="hook-text">❌ "الدايت معناه أكل سلطة بس"<br>✅ غلط 100% — أنا اتخست 12 كيلو وأنا باكل فول وفراخ وبيض كل يوم</div>
-    </div>
-    <div class="hook-card">
-      <div class="hook-platform platform-fb">📘 فيسبوك</div>
-      <div class="hook-text">يوم الاثنين عملت نظام، يوم الأربعاء رجعت للعادي؟ عندي حل بسيط جداً... المشكلة مش في إرادتك — في النظام اللي اخترته.</div>
-    </div>
-    <div class="hook-card">
-      <div class="hook-platform platform-ig">📸 انستجرام</div>
-      <div class="hook-text">صورة وجبة مصرية بسيطة + كابشن: "1400 سعر حراري — اللي بيخسّس فعلاً 🇪🇬"<br>#دايت_مصري #تخسيس #أكل_صح</div>
-    </div>
-    <div class="hook-card">
-      <div class="hook-platform platform-wa">💬 واتساب ستوري</div>
-      <div class="hook-text">3 أيام مجاناً! ابعت "نظام" وهبعتلك الـ sample 🎁<br>بدون بطاقة بنكية — جرّب وبعدين اقرر</div>
-    </div>
-    <div class="hook-card" style="background:linear-gradient(135deg,rgba(13,107,75,.2),rgba(94,47,189,.1));border-color:rgba(30,201,138,.2)">
-      <div class="hook-platform platform-cta">🎯 CTA قوي</div>
-      <div class="hook-text" style="color:var(--txt)">149 جنيه بس = 7 كتب تغذية + 30 يوم مخطط + متابعة واتساب<br>فودافون كاش في ثانية ⚡</div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ SECURITY ══ -->
-<div class="view" id="v-security">
-  <div class="sec-title"><div class="glow-dot"></div>منظومة الأمان — 7 طبقات حماية</div>
-  <div class="sec-sub">المحتوى محمي ضد السرقة والمشاركة غير المصرح بها</div>
-
-  <div style="border-radius:var(--r);overflow:hidden;margin-bottom:20px;height:110px;position:relative">
-    <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=700&q=80" style="width:100%;height:100%;object-fit:cover" alt="أمان">
-    <div style="position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;padding:20px">
-      <div style="font-size:15px;font-weight:800;color:#fff">🔒 المحتوى محمي بـ 7 طبقات أمان</div>
+    <div class="cfoot">
+      <button class="btnBack" onclick="prev()">← رجوع</button>
+      <button class="btnNext" onclick="next(2)">التالي • Next →</button>
     </div>
   </div>
 
-  <div class="sec-grid">
-    <div class="sec-item"><div class="sec-icon">🔗</div><div class="sec-title2">Device Fingerprint</div><div class="sec-desc">كل حساب مربوط بجهاز واحد فقط</div></div>
-    <div class="sec-item"><div class="sec-icon">💧</div><div class="sec-title2">Watermark ديناميكي</div><div class="sec-desc">اسم المستخدم على كل المحتوى</div></div>
-    <div class="sec-item"><div class="sec-icon">🚫</div><div class="sec-title2">منع النسخ</div><div class="sec-desc">Ctrl+C · PrintScreen · طباعة محجوبة</div></div>
-    <div class="sec-item"><div class="sec-icon">⏱️</div><div class="sec-title2">Session 8 ساعات</div><div class="sec-desc">تنتهي الجلسة تلقائياً</div></div>
-    <div class="sec-item"><div class="sec-icon">🛡️</div><div class="sec-title2">Rate Limiting</div><div class="sec-desc">5 محاولات / 15 دقيقة</div></div>
-    <div class="sec-item"><div class="sec-icon">📋</div><div class="sec-title2">Security Logs</div><div class="sec-desc">تسجيل كل نشاط مشبوه</div></div>
-    <div class="sec-item"><div class="sec-icon">🚪</div><div class="sec-title2">Force Logout</div><div class="sec-desc">الأدمن يُخرج أي مستخدم فوراً</div></div>
+  <!-- ═══ STEP 3: Activity ═══ -->
+  <div class="card" id="s3">
+    <div class="cimg">
+      <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=900&auto=format&fit=crop&q=80" alt="gym workout" loading="lazy">
+      <div class="cimg-overlay"></div>
+      <div class="cimg-text">
+        <div><div class="ctitle">النشاط البدني<span class="ctitle-en">Physical Activity</span></div></div>
+        <div class="cnum">03</div>
+      </div>
+    </div>
+    <div class="cbody">
+      <div class="field">
+        <div class="label"><span class="req">*</span>مستوى نشاطك اليومي <span class="en">Daily activity level</span></div>
+        <div class="alist" id="activity">
+          <div class="arow" onclick="pick1('activity',this,'خامل / Sedentary')">
+            <div class="aemoji">😴</div>
+            <div class="atxt"><div class="aname">خامل <span class="aen">Sedentary</span></div><div class="asub">جلوس معظم اليوم • Desk job, no exercise</div></div>
+            <div class="ado"></div>
+          </div>
+          <div class="arow" onclick="pick1('activity',this,'خفيف / Light')">
+            <div class="aemoji">🚶</div>
+            <div class="atxt"><div class="aname">خفيف <span class="aen">Lightly Active</span></div><div class="asub">تمشية أو تمرين ١-٣ أيام • Light exercise 1-3 days/week</div></div>
+            <div class="ado"></div>
+          </div>
+          <div class="arow" onclick="pick1('activity',this,'متوسط / Moderate')">
+            <div class="aemoji">🏃</div>
+            <div class="atxt"><div class="aname">متوسط <span class="aen">Moderately Active</span></div><div class="asub">تمرين منتظم ٣-٥ أيام • 3-5 days/week</div></div>
+            <div class="ado"></div>
+          </div>
+          <div class="arow" onclick="pick1('activity',this,'نشط جداً / Very Active')">
+            <div class="aemoji">⚡</div>
+            <div class="atxt"><div class="aname">نشط جداً <span class="aen">Very Active</span></div><div class="asub">تمرين مكثف ٦-٧ أيام • Hard training 6-7 days</div></div>
+            <div class="ado"></div>
+          </div>
+          <div class="arow" onclick="pick1('activity',this,'رياضي محترف / Athlete')">
+            <div class="aemoji">🏆</div>
+            <div class="atxt"><div class="aname">رياضي محترف <span class="aen">Athlete</span></div><div class="asub">تدريب مزدوج أو عمل بدني • Double training / physical job</div></div>
+            <div class="ado"></div>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label">نوع الرياضة <span class="en">Sport type (multi)</span></div>
+        <div class="photoChips" id="sports">
+          <div class="pchip" onclick="multi('sports',this,'كمال أجسام / Bodybuilding')">
+            <div class="pchip-img"><img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=80&auto=format&fit=crop&q=70" alt="" loading="lazy"></div>
+            <div class="pchip-lbl">🏋️ كمال أجسام</div>
+          </div>
+          <div class="pchip" onclick="multi('sports',this,'كارديو / Cardio')">
+            <div class="pchip-img"><img src="https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=80&auto=format&fit=crop&q=70" alt="" loading="lazy"></div>
+            <div class="pchip-lbl">🏃 كارديو</div>
+          </div>
+          <div class="pchip" onclick="multi('sports',this,'كروس فيت / CrossFit')">
+            <div class="pchip-img"><img src="https://images.unsplash.com/photo-1519311965067-36d3e5f33d39?w=80&auto=format&fit=crop&q=70" alt="" loading="lazy"></div>
+            <div class="pchip-lbl">⚡ كروس فيت</div>
+          </div>
+          <div class="pchip" onclick="multi('sports',this,'كرة قدم / Football')">
+            <div class="pchip-img"><img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=80&auto=format&fit=crop&q=70" alt="" loading="lazy"></div>
+            <div class="pchip-lbl">⚽ كرة قدم</div>
+          </div>
+          <div class="pchip" onclick="multi('sports',this,'سباحة / Swimming')">
+            <div class="pchip-img"><img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?w=80&auto=format&fit=crop&q=70" alt="" loading="lazy"></div>
+            <div class="pchip-lbl">🏊 سباحة</div>
+          </div>
+          <div class="pchip" onclick="multi('sports',this,'يوجا / Yoga')">
+            <div class="pchip-img"><img src="https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?w=80&auto=format&fit=crop&q=70" alt="" loading="lazy"></div>
+            <div class="pchip-lbl">🧘 يوجا</div>
+          </div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="field">
+          <div class="label">أيام التمرين أسبوعياً <span class="en">Training days/week</span></div>
+          <select id="trainDays">
+            <option value="">اختر / Select</option>
+            <option>لا أتمرن / None</option>
+            <option>١-٢ يوم / 1-2 days</option>
+            <option>٣-٤ أيام / 3-4 days</option>
+            <option>٥-٦ أيام / 5-6 days</option>
+            <option>يومياً / Daily</option>
+          </select>
+        </div>
+        <div class="field">
+          <div class="label">وقت التمرين <span class="en">Workout time</span></div>
+          <select id="trainTime">
+            <option value="">اختر / Select</option>
+            <option>صباح باكر / Early AM</option>
+            <option>الصباح / Morning</option>
+            <option>الظهيرة / Noon</option>
+            <option>المساء / Evening</option>
+            <option>الليل / Night</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="cfoot">
+      <button class="btnBack" onclick="prev()">← رجوع</button>
+      <button class="btnNext" onclick="next(3)">التالي • Next →</button>
+    </div>
   </div>
-</div>
 
-</div>
+  <!-- ═══ STEP 4: Health ═══ -->
+  <div class="card" id="s4">
+    <div class="cimg">
+      <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=900&auto=format&fit=crop&q=80" alt="health medical" loading="lazy">
+      <div class="cimg-overlay"></div>
+      <div class="cimg-text">
+        <div><div class="ctitle">الحالة الصحية<span class="ctitle-en">Health Status</span></div></div>
+        <div class="cnum">04</div>
+      </div>
+    </div>
+    <div class="cbody">
+      <div class="field">
+        <div class="label">أمراض مزمنة <span class="en">Chronic conditions (multi)</span></div>
+        <div class="chips" id="diseases">
+          <div class="chip" onclick="multi('diseases',this,'سكري / Diabetes')">🩸 سكري</div>
+          <div class="chip" onclick="multi('diseases',this,'ضغط دم / Blood Pressure')">💊 ضغط دم</div>
+          <div class="chip" onclick="multi('diseases',this,'كوليسترول / Cholesterol')">🫀 كوليسترول</div>
+          <div class="chip" onclick="multi('diseases',this,'قولون عصبي / IBS')">🫁 قولون</div>
+          <div class="chip" onclick="multi('diseases',this,'أمراض كلى / Kidney')">🫘 كلى</div>
+          <div class="chip" onclick="multi('diseases',this,'غدة درقية / Thyroid')">🦋 غدة درقية</div>
+          <div class="chip" onclick="multi('diseases',this,'أمراض قلب / Heart')">❤️ قلب</div>
+          <div class="chip" onclick="multi('diseases',this,'لا يوجد / None')">✅ لا يوجد</div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label">حساسية غذائية <span class="en">Food allergies (multi)</span></div>
+        <div class="chips" id="allergies">
+          <div class="chip" onclick="multi('allergies',this,'لاكتوز / Lactose')">🥛 لاكتوز</div>
+          <div class="chip" onclick="multi('allergies',this,'جلوتين / Gluten')">🌾 جلوتين</div>
+          <div class="chip" onclick="multi('allergies',this,'مكسرات / Nuts')">🥜 مكسرات</div>
+          <div class="chip" onclick="multi('allergies',this,'بيض / Eggs')">🥚 بيض</div>
+          <div class="chip" onclick="multi('allergies',this,'أسماك / Fish')">🐟 أسماك</div>
+          <div class="chip" onclick="multi('allergies',this,'لا يوجد / None')">✅ لا يوجد</div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label">الأدوية الحالية <span class="en">Current medications</span></div>
+        <input type="text" id="meds" placeholder="اذكر الأدوية / List medications...">
+      </div>
+      <div class="g2">
+        <div class="field">
+          <div class="label">للسيدات فقط <span class="en">For women only</span></div>
+          <div class="chips" id="preg">
+            <div class="chip" onclick="pick1('preg',this,'لا ينطبق / N/A')">لا ينطبق</div>
+            <div class="chip" onclick="pick1('preg',this,'حامل / Pregnant')">🤰 حامل</div>
+            <div class="chip" onclick="pick1('preg',this,'مرضعة / Breastfeeding')">🍼 مرضعة</div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="label">مستوى الضغط النفسي <span class="en">Stress level (1-5)</span></div>
+          <div class="scaleRow" id="stress">
+            <div class="sbtn" onclick="pickSc('stress',this,'1')">1</div>
+            <div class="sbtn" onclick="pickSc('stress',this,'2')">2</div>
+            <div class="sbtn" onclick="pickSc('stress',this,'3')">3</div>
+            <div class="sbtn" onclick="pickSc('stress',this,'4')">4</div>
+            <div class="sbtn" onclick="pickSc('stress',this,'5')">5</div>
+          </div>
+          <div class="sclbl"><span>منخفض / Low</span><span>مرتفع / High</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="cfoot">
+      <button class="btnBack" onclick="prev()">← رجوع</button>
+      <button class="btnNext" onclick="next(4)">التالي • Next →</button>
+    </div>
+  </div>
+
+  <!-- ═══ STEP 5: Food ═══ -->
+  <div class="card" id="s5">
+    <div class="cimg">
+      <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=900&auto=format&fit=crop&q=80" alt="food meals" loading="lazy">
+      <div class="cimg-overlay"></div>
+      <div class="cimg-text">
+        <div><div class="ctitle">العادات الغذائية<span class="ctitle-en">Food Habits</span></div></div>
+        <div class="cnum">05</div>
+      </div>
+    </div>
+    <div class="cbody">
+      <div class="field">
+        <div class="label"><span class="req">*</span>عدد الوجبات اليومية <span class="en">Meals per day</span></div>
+        <div class="mealsGrid" id="mealsNum">
+          <div class="mcard" onclick="pickM(this,'2')">
+            <div class="mcard-img"><img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=200&auto=format&fit=crop&q=70" alt="" loading="lazy"></div>
+            <div class="mcard-body"><div class="mcard-n">2</div><div class="mcard-l">وجبتان</div></div>
+          </div>
+          <div class="mcard" onclick="pickM(this,'3')">
+            <div class="mcard-img"><img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=200&auto=format&fit=crop&q=70" alt="" loading="lazy"></div>
+            <div class="mcard-body"><div class="mcard-n">3</div><div class="mcard-l">وجبات</div></div>
+          </div>
+          <div class="mcard" onclick="pickM(this,'4')">
+            <div class="mcard-img"><img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=200&auto=format&fit=crop&q=70" alt="" loading="lazy"></div>
+            <div class="mcard-body"><div class="mcard-n">4</div><div class="mcard-l">+ سناك</div></div>
+          </div>
+          <div class="mcard" onclick="pickM(this,'5-6')">
+            <div class="mcard-img"><img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=200&auto=format&fit=crop&q=70" alt="" loading="lazy"></div>
+            <div class="mcard-body"><div class="mcard-n">5+</div><div class="mcard-l">صغيرة</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label">نوع النظام الغذائي <span class="en">Diet type</span></div>
+        <div class="chips" id="dietT">
+          <div class="chip" onclick="pick1('dietT',this,'عادي / Regular')">🍖 عادي</div>
+          <div class="chip" onclick="pick1('dietT',this,'نباتي / Vegetarian')">🥦 نباتي</div>
+          <div class="chip" onclick="pick1('dietT',this,'فيغان / Vegan')">🌱 فيغان</div>
+          <div class="chip" onclick="pick1('dietT',this,'كيتو / Keto')">🥑 كيتو</div>
+          <div class="chip" onclick="pick1('dietT',this,'صيام متقطع / IF')">⏰ صيام متقطع</div>
+          <div class="chip" onclick="pick1('dietT',this,'باليو / Paleo')">🥩 باليو</div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label">الأطعمة المفضلة <span class="en">Favourite foods (multi)</span></div>
+        <div class="photoChips" id="liked">
+          <div class="pchip" onclick="multi('liked',this,'دجاج / Chicken')">
+            <div class="pchip-img"><img src="https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=80&auto=format&fit=crop&q=70" alt="" loading="lazy"></div>
+            <div class="pchip-lbl">🍗 دجاج</div>
+          </div>
+          <div class="pchip" onclick="multi('liked',this,'لحم / Red Meat')">
+            <div class="pchip-img"><img src="https://images.unsplash.com/photo-1607116667981-ff83bd5b3c0e?w=80&auto=format&fit=crop&q=70" alt="" loading="lazy"></div>
+            <div class="pchip-lbl">🥩 لحم</div>
+          </div>
+          <div class="pchip" onclick="multi('liked',this,'أسماك / Fish')">
+            <div class="pchip-img"><img src="https://images.unsplash.com/photo-1485921325833-c519f76c4927?w=80&auto=format&fit=crop&q=70" alt="" loading="lazy"></div>
+            <div class="pchip-lbl">🐟 أسماك</div>
+          </div>
+          <div class="pchip" onclick="multi('liked',this,'بيض / Eggs')">
+            <div class="pchip-img"><img src="https://images.unsplash.com/photo-1607690424560-35d967d6ad7b?w=80&auto=format&fit=crop&q=70" alt="" loading="lazy"></div>
+            <div class="pchip-lbl">🥚 بيض</div>
+          </div>
+          <div class="pchip" onclick="multi('liked',this,'خضروات / Vegetables')">
+            <div class="pchip-img"><img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=80&auto=format&fit=crop&q=70" alt="" loading="lazy"></div>
+            <div class="pchip-lbl">🥗 خضروات</div>
+          </div>
+          <div class="pchip" onclick="multi('liked',this,'فواكه / Fruits')">
+            <div class="pchip-img"><img src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=80&auto=format&fit=crop&q=70" alt="" loading="lazy"></div>
+            <div class="pchip-lbl">🍎 فواكه</div>
+          </div>
+          <div class="pchip" onclick="multi('liked',this,'بقوليات / Legumes')">
+            <div class="pchip-img"><img src="https://images.unsplash.com/photo-1536304993881-ff86e0c9e15e?w=80&auto=format&fit=crop&q=70" alt="" loading="lazy"></div>
+            <div class="pchip-lbl">🫘 بقوليات</div>
+          </div>
+          <div class="pchip" onclick="multi('liked',this,'ألبان / Dairy')">
+            <div class="pchip-img"><img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?w=80&auto=format&fit=crop&q=70" alt="" loading="lazy"></div>
+            <div class="pchip-lbl">🧀 ألبان</div>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label">أطعمة لا تحبها <span class="en">Disliked / avoided foods</span></div>
+        <input type="text" id="disliked" placeholder="مثال: الكبدة، الباذنجان • e.g. liver, eggplant">
+      </div>
+      <div class="g2">
+        <div class="field">
+          <div class="label">الماء يومياً <span class="en">Daily water</span></div>
+          <select id="water">
+            <option value="">اختر / Select</option>
+            <option>أقل من لتر / Under 1L</option>
+            <option>١-٢ لتر / 1-2L</option>
+            <option>٢-٣ لتر / 2-3L</option>
+            <option>+٣ لتر / 3L+</option>
+          </select>
+        </div>
+        <div class="field">
+          <div class="label">ساعات النوم <span class="en">Sleep hours</span></div>
+          <select id="sleep">
+            <option value="">اختر / Select</option>
+            <option>أقل من ٥ / Under 5h</option>
+            <option>٥-٦ ساعات / 5-6h</option>
+            <option>٧-٨ ساعات / 7-8h</option>
+            <option>+٨ ساعات / 8h+</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="cfoot">
+      <button class="btnBack" onclick="prev()">← رجوع</button>
+      <button class="btnNext" onclick="next(5)">التالي • Next →</button>
+    </div>
+  </div>
+
+  <!-- ═══ STEP 6: Final ═══ -->
+  <div class="card" id="s6">
+    <div class="cimg">
+      <img src="https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=900&auto=format&fit=crop&q=80" alt="meal prep kitchen" loading="lazy">
+      <div class="cimg-overlay"></div>
+      <div class="cimg-text">
+        <div><div class="ctitle">تفاصيل أخيرة<span class="ctitle-en">Final Details</span></div></div>
+        <div class="cnum">06</div>
+      </div>
+    </div>
+    <div class="cbody">
+      <div class="field">
+        <div class="label">الميزانية اليومية للأكل <span class="en">Daily food budget</span></div>
+        <div class="chips" id="budget">
+          <div class="chip" onclick="pick1('budget',this,'محدودة / Low')">💵 محدودة / Low</div>
+          <div class="chip" onclick="pick1('budget',this,'متوسطة / Mid')">💵💵 متوسطة / Mid</div>
+          <div class="chip" onclick="pick1('budget',this,'مرتفعة / High')">💵💵💵 مرتفعة / High</div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="field">
+          <div class="label">أين تأكل؟ <span class="en">Where do you eat?</span></div>
+          <div class="chips" id="eatWhere" style="flex-direction:column;gap:6px">
+            <div class="chip" onclick="pick1('eatWhere',this,'أطبخ في البيت / Home cooking')">🏠 البيت / Home</div>
+            <div class="chip" onclick="pick1('eatWhere',this,'خارج في الأغلب / Eating out')">🍽️ برا / Eating out</div>
+            <div class="chip" onclick="pick1('eatWhere',this,'مزيج / Mix')">🔄 مزيج / Mix</div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="label">وقت تحضير الأكل <span class="en">Prep time available</span></div>
+          <div class="chips" id="prepT" style="flex-direction:column;gap:6px">
+            <div class="chip" onclick="pick1('prepT',this,'أقل من ٣٠ دقيقة / Under 30 min')">⚡ أقل من ٣٠ د</div>
+            <div class="chip" onclick="pick1('prepT',this,'٣٠-٦٠ دقيقة / 30-60 min')">⏱️ ٣٠-٦٠ دقيقة</div>
+            <div class="chip" onclick="pick1('prepT',this,'أكثر من ساعة / Over 1hr')">🕐 +ساعة</div>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label">تجارب حميات سابقة <span class="en">Previous diet experience</span></div>
+        <textarea id="prevDiet" placeholder="هل جربت حميات قبل؟ ما الذي نجح؟ • Any past diets? What worked?"></textarea>
+      </div>
+      <div class="field">
+        <div class="label">ملاحظات إضافية <span class="en">Additional notes</span></div>
+        <textarea id="notes" placeholder="أي معلومات أخرى... • Anything else we should know..."></textarea>
+      </div>
+    </div>
+    <div class="cfoot">
+      <button class="btnBack" onclick="prev()">← رجوع</button>
+      <button class="btnNext btnSubmit" onclick="submitForm()">🎉 إرسال واستلام الخطة • Submit</button>
+    </div>
+  </div>
+
+  <!-- ═══ SUCCESS ═══ -->
+  <div class="success" id="done">
+    <div class="success-hero">
+      <img src="https://images.unsplash.com/photo-1543352634-a1c51d9f1fa7?w=900&auto=format&fit=crop&q=80" alt="success" loading="lazy">
+      <div class="success-hero-overlay">
+        <h2>تم بنجاح! <em>You're all set!</em></h2>
+      </div>
+    </div>
+    <div class="success-body">
+      <div class="scheck">✅</div>
+      <p>
+        تم استلام بياناتك بنجاح 🎉<br>
+        خطتك الغذائية المخصصة في طريقها لإيميلك خلال <strong>٢٤ ساعة</strong>
+      </p>
+      <p class="en-note">Your personalised nutrition plan will arrive by email within 24 hours.</p>
+    </div>
+  </div>
+
+</div><!-- .wrapper -->
 
 <script>
-const BOOKS=[
-  {id:'loss',emoji:'🔥',title:'كتاب التخسيس',desc:'خسارة 4-8 كيلو/شهر بأكل مصري',price:49,img:'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=300&q=75',free:true},
-  {id:'maintain',emoji:'⚖️',title:'كتاب التثبيت',desc:'حافظ على وزنك بعد التخسيس',price:49,img:'https://images.unsplash.com/photo-1543352634-99a5d50ae78e?w=300&q=75',free:false},
-  {id:'bulk',emoji:'💪',title:'زيادة الوزن والعضل',desc:'2600 سعر + 150جم بروتين يومياً',price:49,img:'https://images.unsplash.com/photo-1532384748853-8f54a8f476e2?w=300&q=75',free:false},
-  {id:'ramadan',emoji:'🌙',title:'نظام رمضان',desc:'إفطار وسحور مضبوطين',price:49,img:'https://images.unsplash.com/photo-1585631680520-ab6acb2d7c71?w=300&q=75',free:false},
-  {id:'budget',emoji:'💰',title:'النظام الاقتصادي',desc:'يوم كامل بـ 25 جنيه',price:39,img:'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=300&q=75',free:false},
-  {id:'busy',emoji:'⚡',title:'للمشغولين',desc:'وجبات جاهزة في 5-10 دقائق',price:49,img:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=300&q=75',free:false},
-  {id:'lazy',emoji:'😴',title:'للكسولين',desc:'3 وجبات بسيطة وكفاية',price:39,img:'https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=300&q=75',free:false},
-];
-const DAYS=[
-  {meals:[
-    {time:'فطار 7ص',name:'2 بيضة مسلوقة + خيار وطماطم',cal:220},
-    {time:'سناك 10ص',name:'تفاحة متوسطة',cal:80},
-    {time:'غداء 2م',name:'صدر فراخ 150جم + نص كوب رز + سلطة',cal:480},
-    {time:'سناك 5م',name:'زبادي سادة',cal:120},
-    {time:'عشاء 8م',name:'فول مدمس + عيشة أسمر',cal:380},
-  ],total:{calories:1280,protein:76,carbs:138,fat:37}},
-  {meals:[
-    {time:'فطار 7ص',name:'فول مدمس + بيضة مقلية + طماطم',cal:350},
-    {time:'سناك 10ص',name:'موزة صغيرة',cal:90},
-    {time:'غداء 2م',name:'سمكة مشوية + بطاطس 150جم + سلطة',cal:420},
-    {time:'سناك 5م',name:'جبنة قريش + خيار',cal:130},
-    {time:'عشاء 8م',name:'2 بيضة + عيشة أسمر + طماطم',cal:320},
-  ],total:{calories:1310,protein:82,carbs:137,fat:41}},
-  {meals:[
-    {time:'فطار 7ص',name:'زبادي + موزة + عسل',cal:280},
-    {time:'سناك 10ص',name:'تونة صغيرة + خيار',cal:120},
-    {time:'غداء 2م',name:'شوربة عدس + عيشة + سلطة',cal:450},
-    {time:'سناك 5م',name:'فاكهة موسمية',cal:85},
-    {time:'عشاء 8م',name:'فراخ مسلوق 120جم + خضار مطبوخة',cal:340},
-  ],total:{calories:1275,protein:81,carbs:160,fat:24}},
-];
+// ━━━ STATE ━━━
+let step=1; const TOTAL=6;
+const S1={}; // single-select values keyed by groupId
+const MV={}; // multi-select arrays
+const SC={}; // scale values
+let goalVal='', mealsVal='';
+const LABELS=['البيانات الشخصية','الهدف','النشاط','الصحة','الغذاء','التفاصيل'];
+const LABELSen=['Personal','Goal','Activity','Health','Food','Details'];
+const AR=['','١','٢','٣','٤','٥','٦'];
 
-document.getElementById('booksGrid').innerHTML=BOOKS.map(b=>`
-  <div class="book-card">
-    <div class="book-img">
-      <img src="${b.img}" alt="${b.title}" loading="lazy">
-      <div class="book-img-overlay"></div>
-      <div class="book-emoji-badge">${b.emoji}</div>
-    </div>
-    <div class="book-body">
-      <div class="book-title">${b.title}</div>
-      <div class="book-desc">${b.desc}</div>
-      <div class="book-footer">
-        <div class="price-tag">${b.price} جنيه</div>
-        ${b.free?'<span class="free-badge">3 أيام مجاناً</span>':'<span class="locked-badge">🔒 بعد الشراء</span>'}
-      </div>
-    </div>
-  </div>`).join('');
+// ━━━ INIT ━━━
+(function init(){
+  const row=document.getElementById('stepsRow');
+  for(let i=1;i<=TOTAL;i++){
+    if(i>1){const c=document.createElement('div');c.className='step-connector';c.id='sc'+i;row.appendChild(c);}
+    const p=document.createElement('div');
+    p.className='step-pill'+(i===1?' active':'');
+    p.id='sp'+i;
+    p.innerHTML=`<div class="step-pill-dot">${i}</div><span>${LABELS[i-1]}</span>`;
+    row.appendChild(p);
+  }
+  sync();
+})();
 
-function showDay(n,btn){
-  document.querySelectorAll('.dtab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  const d=DAYS[n-1];
-  document.getElementById('dayContent').innerHTML=
-    d.meals.map(m=>`<div class="meal-row">
-      <span class="meal-time-chip">${m.time}</span>
-      <span class="meal-name">${m.name}</span>
-      <span class="meal-cal">🔥 ${m.cal}</span>
-    </div>`).join('')+
-    `<div class="day-total">
-      <div class="total-item"><div class="total-num">${d.total.calories}</div><div class="total-lbl">سعر حراري</div></div>
-      <div class="total-item"><div class="total-num" style="color:var(--o3)">${d.total.protein}ج</div><div class="total-lbl">بروتين</div></div>
-      <div class="total-item"><div class="total-num" style="color:var(--p3)">${d.total.carbs}ج</div><div class="total-lbl">كارب</div></div>
-      <div class="total-item"><div class="total-num" style="color:var(--txt2)">${d.total.fat}ج</div><div class="total-lbl">دهون</div></div>
-    </div>`;
+function sync(){
+  const pct=Math.round((step-1)/(TOTAL-1)*100);
+  document.getElementById('fill').style.width=pct+'%';
+  document.getElementById('pct').textContent=pct+'%';
+  document.getElementById('stepLabel').textContent=`الخطوة ${AR[step]} من ٦ • Step ${step} of 6`;
+  for(let i=1;i<=TOTAL;i++){
+    const sp=document.getElementById('sp'+i);
+    sp.className='step-pill'+(i<step?' done':i===step?' active':'');
+    sp.querySelector('.step-pill-dot').textContent=i<step?'✓':i;
+    if(i>1){
+      const sc=document.getElementById('sc'+i);
+      sc.className='step-connector'+(i<=step?' done':'');
+    }
+  }
 }
-showDay(1,document.querySelector('.dtab'));
 
-function sw(id,btn){
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('v-'+id).classList.add('active');
-  if(btn)btn.classList.add('active');
+// ━━━ NAV ━━━
+function next(fromStep){
+  if(!validate(fromStep))return;
+  document.getElementById('s'+fromStep).classList.remove('show');
+  step++;
+  const card=document.getElementById('s'+step);
+  card.classList.add('show');
+  sync();
+  card.scrollIntoView({behavior:'smooth',block:'start'});
 }
+function prev(){
+  document.getElementById('s'+step).classList.remove('show');
+  step--;
+  const card=document.getElementById('s'+step);
+  card.classList.add('show');
+  sync();
+  card.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ━━━ VALIDATE ━━━
+function validate(s){
+  let ok=true;
+  if(s===1){
+    ok=chk('f-name','name',v=>v.trim().length>1)&&ok;
+    ok=chk('f-email','email',v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))&&ok;
+    ok=chk('f-age','age',v=>v>=10&&v<=90)&&ok;
+    ok=chk('f-weight','weight',v=>v>=30&&v<=300)&&ok;
+    ok=chk('f-height','height',v=>v>=100&&v<=230)&&ok;
+    if(!S1['gender']){ok=false;shk('gender');}
+  }
+  if(s===2&&!goalVal){ok=false;shk('goal');}
+  if(s===3&&!S1['activity']){ok=false;shk('activity');}
+  if(s===5&&!mealsVal){ok=false;shk('mealsNum');}
+  return ok;
+}
+function chk(fid,iid,test){
+  const f=document.getElementById(fid),v=document.getElementById(iid)?.value;
+  if(test(v)){f?.classList.remove('err');return true;}
+  f?.classList.add('err');return false;
+}
+function shk(id){
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.style.animation='none';el.offsetHeight;
+  el.style.animation='shake .4s ease';
+  setTimeout(()=>el.style.animation='',500);
+}
+
+// ━━━ PICKERS ━━━
+function pick1(g,el,val){
+  document.querySelectorAll(`#${g} .chip, #${g} .arow`).forEach(c=>c.classList.remove('on'));
+  el.classList.add('on'); S1[g]=val;
+}
+function multi(g,el,val){
+  el.classList.toggle('on');
+  if(!MV[g])MV[g]=[];
+  const a=MV[g],i=a.indexOf(val);
+  i>-1?a.splice(i,1):a.push(val);
+}
+function pickGoal(el,val){
+  document.querySelectorAll('#goal .gcard').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on'); goalVal=val;
+}
+function pickM(el,val){
+  document.querySelectorAll('#mealsNum .mcard').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on'); mealsVal=val;
+}
+function pickSc(g,el,val){
+  document.querySelectorAll(`#${g} .sbtn`).forEach(b=>b.classList.remove('on'));
+  el.classList.add('on'); SC[g]=val;
+}
+
+// ━━━ SUBMIT ━━━
+function submitForm(){
+  const payload={
+    timestamp:new Date().toLocaleString('ar-EG'),
+    name:v('name'), email:v('email'), whatsapp:v('whatsapp'),
+    age:v('age'), weight:v('weight'), height:v('height'),
+    gender:S1['gender']||'',
+    goal:goalVal, targetWeight:v('targetW'), duration:v('duration'),
+    activityLevel:S1['activity']||'',
+    sports:arr('sports'), trainingDays:v('trainDays'), trainingTime:v('trainTime'),
+    diseases:arr('diseases'), allergies:arr('allergies'),
+    medications:v('meds'), pregnancy:S1['preg']||'',
+    stressLevel:SC['stress']||'',
+    mealsPerDay:mealsVal, dietType:S1['dietT']||'',
+    likedFood:arr('liked'), dislikedFood:v('disliked'),
+    waterIntake:v('water'), sleepHours:v('sleep'),
+    budget:S1['budget']||'', cookingPref:S1['eatWhere']||'',
+    prepTime:S1['prepT']||'',
+    previousDiets:v('prevDiet'), notes:v('notes')
+  };
+
+  // 🔗 ضع هنا رابط Apps Script Web App URL بتاعك
+  const SCRIPT_URL='YOUR_APPS_SCRIPT_URL_HERE';
+
+  const btn=document.querySelector('.btnSubmit');
+  btn.textContent='⏳ جاري الإرسال... Sending';
+  btn.disabled=true;
+
+  if(SCRIPT_URL!=='YOUR_APPS_SCRIPT_URL_HERE'){
+    fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    }).then(done).catch(done);
+  } else {
+    setTimeout(done,1800);
+  }
+}
+function done(){
+  for(let i=1;i<=TOTAL;i++){const c=document.getElementById('s'+i);if(c)c.style.display='none';}
+  document.getElementById('stepsRow').style.display='none';
+  document.querySelector('.sticky').style.opacity='0';
+  const d=document.getElementById('done');
+  d.style.display='block';
+  setTimeout(()=>d.scrollIntoView({behavior:'smooth'}),100);
+}
+function v(id){return document.getElementById(id)?.value||''}
+function arr(g){return(MV[g]||[]).join(' | ')}
 </script>
+</body>
+</html>
